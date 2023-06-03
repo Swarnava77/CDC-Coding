@@ -1,0 +1,136 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        
+class CircularLinkedList:
+    def __init__(self):
+        self.head = None
+        
+    def insert(self,data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            new_node.next = self.head
+            
+        else:
+            curr_node = self.head
+            while curr_node.next != self.head:
+                curr_node = curr_node.next
+            curr_node.next = new_node
+            new_node.next = self.head
+            
+    def beginDelete(self):
+        if self.head is None:
+            print("The list is empty.")
+        elif self.head.next == self.head:
+            self.head = None
+            
+        else:
+            curr_node = self.head
+            while curr_node.next != self.head:
+                curr_node = curr_node.next
+            curr_node.next = self.head.next
+            self.head = self.head.next
+            
+    def lastDelete(self):
+        if self.head is None:
+            print("The list is empty.")
+            
+        elif self.head.next == self.head:
+            self.head = None
+        else:
+            curr_node = self.head
+            prev_node = None
+            while curr_node.next != self.head:
+                prev_node = curr_node
+                curr_node = curr_node.next
+            prev_node.next = self.head
+            curr_node = None
+            
+    def randomDelete(self, pos):
+        if self.head is None:
+            print("The list is empty.")
+        elif pos == 1:
+            self.beginDelete()
+        else:
+            curr_node = self.head
+            prev_node = None
+            count = 1
+            while curr_node.next != self.head and count != pos:
+                prev_node = curr_node
+                curr_node = curr_node.next
+                count +=1
+            if count == pos:
+                prev_node.next = curr_node.next
+                curr_node = None
+            else:
+                print("Position out of range.")
+                
+        def search(self, data):
+            if self.head is None:
+                print("The list is empty.")
+            else:
+                curr_node = self.head
+                position = 1
+                while True:
+                    if curr_node.data == data:
+                        print("Node with data", data, "found at position", position)
+                        return 1
+                    curr_node = curr_node.next
+                    position += 1
+                    if curr_node == self.head:
+                        break
+                    
+                print("Node with data", data, "not found.")
+                return -1
+                
+        def display(self):
+            if self.head is None:
+                print("The list is empty.")
+            else:
+                curr_node = self.head
+                print("Circular Linked List:", end=" ")
+                while True:
+                    print(curr_node.data, end=" ")
+                    curr_node = curr_node.next
+                    if curr_node == self.head:
+                        break
+                print()
+                
+cllist = CircularLinkedList()
+
+while True:
+    print("1. Insert")
+    print("2. Begin Delete")
+    print("3. Last Delete")
+    print("4. Random Delete")
+    print("5. Search")
+    print("6. Display")
+    print("7. Exit")
+    choice = int(input("Enter your choice: "))
+    
+    if choice == 1:
+        data = int(input("Enter the data to be inserted: "))
+        cllist.insert(data)
+        print("Node with data", data, "inserted.")
+    elif choice == 2:
+        cllist.beginDelete()
+        print("Node at the beginning deleted.")
+    elif choice == 3:
+        cllist.lastDelete()
+        print("Node at the end deleted.")
+    elif choice == 4:
+        pos = int(input("Enter the position to delete. "))
+        cllist.randomDelete(pos)
+    elif choice == 5:
+        data = int(input("Enter the data to be searched: "))
+        cllist.search(data)
+    elif choice == 6:
+        cllist.display()
+    elif choice == 7:
+        print("Exiting the program...")
+        break
+    else:
+        print("Invalid choice. Please try again.")
+        
