@@ -1,0 +1,78 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None
+        self.next = None
+        
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        
+    def addNode(self, data):
+        newNode = Node(data)
+        if self.head is None:
+            self.head = newNode
+            self.tail = newNode
+                
+        else:
+            newNode.prev =self.tail
+            self.tail.next = newNode
+            self.tail = newNode
+                
+    def display(self):
+        current = self.head
+        while current:
+            print(current.data, end=" ")
+            current = current.next
+            
+        print()
+        
+        
+def mergeLists(list1, list2):
+    
+    mergedList = DoublyLinkedList()
+    
+    current1 = list1.head
+    current2 = list2.head
+    
+    while current1 is not None and current2 is not None:
+        if current1.data< current2.data:
+            mergedList.addNode(current1.data)
+            current1 = current1.next
+            
+        else:
+            mergedList.addNode(current2.data)
+            current2 = current2.next
+            
+    while current1 is not None:
+        mergedList.addNode(current1.data)
+        current1 = current1.next
+        
+    while current2 is not None:
+        
+        mergedList.addNode(current2.data)
+        current2 = current2.next
+        
+    return mergedList
+    
+    
+size1  = int(input())
+elements1 = list(map(int, input().split()))
+size2 = int(input())
+elements2 = list(map(int, input().split()))
+
+list1 = DoublyLinkedList()
+list2 = DoublyLinkedList()
+
+for element in elements1:
+    list1.addNode(element)
+    
+    
+for element in elements2:
+    list2.addNode(element)
+    
+    
+mergedList = DoublyLinkedList.mergeLists(list1, list2)
+print("Merged list:")
+mergedList.display()
