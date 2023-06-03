@@ -1,0 +1,110 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None
+        self.next = None
+        
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        
+    def insert_front(self, data):
+        new_node = Node(data)
+        
+        if self.head is None:
+            self.head = new_node
+            
+        else:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+            
+        print("Node with data", data, "inserted at the front.")
+        
+    def insert_end(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+        else:
+            
+            current = self.head
+            while current.next is not None:
+                current = current.next
+                
+            current.next = new_node
+            
+            new_node.prev = current
+            
+        print("Node with data", data, "inserted at the end.")
+    def insert_pos(self, pos, data):
+        if pos< 1:
+            print("Invalid position. Please try again.")
+            return
+        if pos == 1:
+            self.insert_front(data)
+            return
+        
+        new_node = Node(data)
+        current = self.head
+        count = 1
+        
+        while current is not None and count <pos:
+            current = current.next
+            count +=1
+            
+        if current is None:
+            print("Invalid position. Please try again.")
+            return
+        
+        new_node.prev = current.prev
+        new_node.next = current
+        current.prev.next = new-node
+        current.prev = new_node
+        print("Node with data", data, "inserted at position", pos, ".")
+    def traverse(self):
+        if self.head is None:
+            print("Doubly Linked List is empty.")
+        else:
+            result = "Doubly Linked List: "
+            current = self.head
+            while current is not None:
+                result += str(current.data) + " "
+                current = current.next
+            print(result)
+            
+dll = DoublyLinkedList()
+
+while True:
+    print("Menu:")
+    print("1. Insert at the front")
+    print("2. Inseet at the end")
+    print("3. Insert at a position")
+    print("4. Traverse the list")
+    print("5. Exit")
+    
+    choice = int(input("Enter your choice: "))
+    
+    if choice == 1:
+        data = int(input("Enter the element to be inserted at the front: "))
+        dll.insert_front(data)
+        
+        
+    elif choice == 2:
+        data = int(input("Enter the element to be inserted at the end: "))
+        dll.insert_end(data)
+        
+    elif choice == 3:
+        pos = int(input("Enter the position to insert: "))
+        data = int(input("Enter the element to be inserted: "))
+        dll.insert_pos(pos, data)
+        
+    elif choice == 4:
+        dll.traverse()
+        
+    elif choice == 5:
+        print("Exiting the program.")
+        break
+    
+    else:
+        print("Invalid choice. Please try again.")
+    
