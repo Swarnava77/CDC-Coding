@@ -1,0 +1,43 @@
+#include<iostream>
+#include<stack>
+#include<unordered_map>
+#include<string>
+using namespace std;
+
+bool isValid(const string& str){
+    stack<char>stk;
+    unordered_map<char, char>parentheses = {
+    {')','('},
+    {']','['},
+    {'}','{'}
+ };
+ for(char c:str){
+    if(c=='('||c=='['||c=='{'){
+        stk.push(c);
+        } 
+    else if(c==')'||c==']'||c=='}'){
+        if(stk.empty()||stk.top()!= parentheses[c]){
+            return false;
+        }
+        stk.pop();
+    }
+ }
+ return stk.empty();
+}
+
+void printPara(const string& str){
+    if(isValid(str)){
+        cout<<"The parentheses are balanced\n";
+    }
+    else{
+        cout<<"The parentheses are not balanced\n";
+    }
+}
+
+int main(){
+    string input;
+    getline(cin,input);
+    printPara(input);
+    return 0;
+    
+}
